@@ -1,52 +1,34 @@
 <script>
-	import { bookmarks } from "./bookmarks";
+	import { bookmarks } from "./bookmarks2";
 	import Set from "./Set.svelte";
 	let filter, newUrl;
 
-	function getNextId(object) {
+	function getNextLinkId() {
 		let number = 0;
 		let highestNumber = 0;
-		for (const key in object) {
-			number = parseInt(key.slice(key.lastIndexOf("-") + 1));
-			if (number > highestNumber) highestNumber = number;
-		}
-		return number + 1;
+		$bookmarks[0].sets.forEach((set) => {
+			set.contents.forEach((link) => {
+				number = parseInt(link.id.slice(link.id.lastIndexOf("-") + 1));
+				if (number > highestNumber) highestNumber = number;
+			});
+		});
+		return highestNumber + 1;
 	}
 
 	function addLink() {
 		if (/^http(s)?:\/\//.test(newUrl) === true) {
-			const nextId = getNextId($bookmarks.links);
+			const nextId = getNextLinkId();
 			console.log(nextId);
-			const newLinkURL = newUrl;
-			let newLinkTitle = newUrl;
 
-			//This adds the new link id to the inbox set
-			const inbox = $bookmarks.sets["set-1"];
-			const newLinkIds = Array.from(inbox.linkIds);
-			newLinkIds.splice(0, 0, "link-" + nextId);
-			const newSet = { ...inbox, linkIds: newLinkIds };
-
-			//This add a new link to the link collection
 			const newLink = {
 				id: "link-" + nextId,
-				title: newLinkTitle,
-				url: newLinkURL,
+				title: newUrl,
+				url: newUrl,
 				display: true,
 			};
 
-			const newBookmarks = {
-				...$bookmarks,
-				links: {
-					...$bookmarks.links,
-					[newLink.id]: newLink,
-				},
-				sets: {
-					...$bookmarks.sets,
-					["set-1"]: newSet,
-				},
-			};
-
-			$bookmarks = newBookmarks;
+			$bookmarks[0].sets[0].contents.unshift(newLink);
+			$bookmarks = $bookmarks;
 		}
 	}
 
@@ -55,15 +37,23 @@
 		/* Step 1 - Find text links that match */
 		let activeLinks = 0;
 		let filteredBookmarks = $bookmarks;
-		for (let key in filteredBookmarks.links) {
-			let link = filteredBookmarks.links[key];
-			if (link.title.toLowerCase().indexOf(filter) > -1 || filter == "") {
-				filteredBookmarks.links[link.id].display = true;
-				activeLinks++;
-			} else {
-				filteredBookmarks.links[link.id].display = false;
-			}
-		}
+		filteredBookmarks[0].sets.forEach((set, setIndex) => {
+			set.contents.forEach((link, linkIndex) => {
+				if (
+					link.title.toLowerCase().indexOf(filter) > -1 ||
+					filter == ""
+				) {
+					filteredBookmarks[0].sets[setIndex].contents[
+						linkIndex
+					].display = true;
+					activeLinks++;
+				} else {
+					filteredBookmarks[0].sets[setIndex].contents[
+						linkIndex
+					].display = false;
+				}
+			});
+		});
 		console.log(activeLinks);
 		$bookmarks = filteredBookmarks;
 	}
@@ -85,8 +75,8 @@
 		Filter: <input bind:value={filter} on:input={reFilter} />
 	</section>
 	<section class="set-container">
-		{#each $bookmarks.setOrder as setname}
-			<Set contents={$bookmarks.sets[setname]} />
+		{#each $bookmarks[0].sets as set, index}
+			<Set {set} setIndex={index} />
 		{/each}
 	</section>
 </main>
