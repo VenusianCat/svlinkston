@@ -1,24 +1,33 @@
 <script>
 	export let set, setIndex;
 	import Link from "./Link.svelte";
-	/* unfortunately our current data structure does not lend itself to use with this plugin; each child must have a unique id property; here we're actually using an array
-	https://www.npmjs.com/package/svelte-dnd-action */
-	/*import { dndzone } from "svelte-dnd-action";*/
+	import { bookmarks } from "./bookmarks2";
+	import { dndzone } from "svelte-dnd-action";
+
+	let items = set.contents;
 
 	function handleDndConsider(e) {
-		console.log(e.detail);
+		items = e.detail.items;
 	}
 
 	function handleDndFinalize(e) {
-		console.log(e.detail);
+		items = e.detail.items;
+		$bookmarks[0].sets[setIndex].contents = e.detail.items;
 	}
 </script>
 
 <slot>
-	<section class="set" data-set-id={set.id}>
+	<section class="setContainer" data-set-id={set.id}>
 		<h2>{set.title}</h2>
-		{#each set.contents as link, index}
-			<Link {link} {setIndex} linkIndex={index} />
-		{/each}
+		<section
+			class="setContents"
+			use:dndzone={{ items }}
+			on:consider={handleDndConsider}
+			on:finalize={handleDndFinalize}
+		>
+			{#each items as link, index (link.id)}
+				<Link {link} {setIndex} linkIndex={index} />
+			{/each}
+		</section>
 	</section>
 </slot>

@@ -63,8 +63,8 @@
 	<section id="intro">
 		<h1>Vlinkston</h1>
 		<p>
-			A noble if misguided attempt to adapt relinkston for Svelte; add
-			functionality - specifically tabs; and, through so doing, learn the
+			A noble attempt to adapt relinkston for Svelte; add functionality -
+			specifically better set grouping; and, through so doing, learn the
 			framework.
 		</p>
 	</section>
