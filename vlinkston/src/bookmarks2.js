@@ -5,24 +5,13 @@ import {
 
 let data = JSON.parse(`
 [
-    {
-        "id": "group-1",
-        "title": "default",
-        "sets": [
-            {
-                "id": "set-1",
-                "title": "Inbox",
-                "contents": [
-                    {
-                        "id": "link-359",
-                        "title": "Overstock.com: Online Shopping - Bedding, Furniture, Electronics, Jewelry, Clothing & more",
-                        "url": "https:\/\/www.overstock.com\/Home-Garden\/Buffet-Sideboard-Console-Table-with-Bottom-Shelf\/31727554\/product.html?refccid=OFYIDYZMCFWZBT2JXUQCZRGQTE&searchidx=17&kwds=buffets%20and%20sideboards&rfmt=material%3AGlass",
-                        "display": true,
-                        "dataType": "link"
-					}]
-				}]
-			}]`);
-
+	{
+		"id": "group-1",
+		"title": "default",
+		"sets": [
+		]
+	}
+]`);
 
 
 async function getData() {
