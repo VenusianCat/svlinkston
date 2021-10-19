@@ -27,17 +27,23 @@
 				display: true,
 			};
 
-			/*fetch("http://localhost/working/backend/ajax.php", {
+			fetch("http://localhost/working/backend/ajax.php", {
 				method: "post",
 				headers: {
 					Accept: "application/json, text/plain, /",
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ action: "lookup", url: newUrl }),
-			}).then((res) => (newLink.title = res.text()));*/
+			}).then(function (response) {
+				response.text().then(function (data) {
+					console.log(data);
+					$bookmarks[0].sets[0].contents[0].title = data;
+				});
+			});
 
 			$bookmarks[0].sets[0].contents.unshift(newLink);
 			$bookmarks = $bookmarks;
+			newUrl = "";
 		}
 	}
 
