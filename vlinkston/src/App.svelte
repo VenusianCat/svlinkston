@@ -100,7 +100,6 @@
 
 	<section class="set-container">
 		{#each $bookmarks[0].sets as set, index}
-			{console.log("Im iterating!")}
 			<Set {set} setIndex={index} />
 		{/each}
 	</section>

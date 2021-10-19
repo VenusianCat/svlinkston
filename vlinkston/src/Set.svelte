@@ -4,7 +4,10 @@
 	import { bookmarks } from "./bookmarks2";
 	import { dndzone } from "svelte-dnd-action";
 
-	let items = set.contents;
+	let items;
+
+	/*OK guys, this line is critical; refactoring set.contents as items worked up to appoint; but without using this operator, changes to $bookmarks were not forcing changes to items, so no updates occured on filter, for example */
+	$: items = set.contents;
 
 	function handleDndConsider(e) {
 		items = e.detail.items;
