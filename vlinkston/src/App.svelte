@@ -27,6 +27,15 @@
 				display: true,
 			};
 
+			/*fetch("http://localhost/working/backend/ajax.php", {
+				method: "post",
+				headers: {
+					Accept: "application/json, text/plain, /",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ action: "lookup", url: newUrl }),
+			}).then((res) => (newLink.title = res.text()));*/
+
 			$bookmarks[0].sets[0].contents.unshift(newLink);
 			$bookmarks = $bookmarks;
 		}
@@ -57,6 +66,19 @@
 		console.log(activeLinks);
 		$bookmarks = filteredBookmarks;
 	}
+
+	function saveBookmarks() {
+		console.log("saving...");
+
+		fetch("http://localhost/working/backend/ajax.php", {
+			method: "post",
+			headers: {
+				Accept: "application/json, text/plain, /",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ action: "save", json: $bookmarks }),
+		}).then((res) => console.log(res));
+	}
 </script>
 
 <main>
@@ -70,12 +92,15 @@
 	</section>
 	<section id="controls">
 		<h2>Controls</h2>
+		<button on:click={saveBookmarks}>Save data</button><br />
 		<input bind:value={newUrl} /><button on:click={addLink}>Add</button><br
 		/>
 		Filter: <input bind:value={filter} on:input={reFilter} />
 	</section>
+
 	<section class="set-container">
 		{#each $bookmarks[0].sets as set, index}
+			{console.log("Im iterating!")}
 			<Set {set} setIndex={index} />
 		{/each}
 	</section>
