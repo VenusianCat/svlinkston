@@ -5,9 +5,8 @@
 	let newTitle;
 
 	function del() {
-		delete $bookmarks[0].sets[setIndex].contents[linkIndex];
-		$bookmarks = $bookmarks;
-		/*link.display = false; (also works and might involve fewer calculations; deletes do not trigger updates on bound objects) */
+		$bookmarks[0].sets[setIndex].contents.splice(linkIndex, 1);
+		link.display = false; // (also works and might involve fewer calculations; deletes do not trigger updates on bound objects)
 	}
 	function edit() {
 		titleEditable = true;
@@ -33,3 +32,9 @@
 		</section>
 	{/if}
 </slot>
+
+<style>
+	section.link {
+		margin-bottom: 10px;
+	}
+</style>

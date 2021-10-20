@@ -11,6 +11,7 @@
 
 	function handleDndConsider(e) {
 		items = e.detail.items;
+		$bookmarks[0].sets[setIndex].contents = e.detail.items;
 	}
 
 	function handleDndFinalize(e) {
@@ -34,3 +35,20 @@
 		</section>
 	</section>
 </slot>
+
+<style>
+	h2 {
+		margin-top: 0;
+		padding-top: 0px;
+		color: #eee;
+	}
+
+	section.setContainer {
+		background-color: #222;
+		border-radius: 15px;
+		margin-bottom: 10px;
+		padding: 20px;
+		overflow-x: hidden;
+		display: block;
+	}
+</style>

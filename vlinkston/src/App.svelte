@@ -88,14 +88,6 @@
 </script>
 
 <main>
-	<section id="intro">
-		<h1>Vlinkston</h1>
-		<p>
-			A noble attempt to adapt relinkston for Svelte; add functionality -
-			specifically better set grouping; and, through so doing, learn the
-			framework.
-		</p>
-	</section>
 	<section id="controls">
 		<h2>Controls</h2>
 		<button on:click={saveBookmarks}>Save data</button><br />
@@ -112,6 +104,12 @@
 </main>
 
 <style>
+	section.set-container {
+		font-size: 1em;
+		column-count: auto;
+		column-width: 320px;
+		column-gap: 20px;
+	}
 	/*
 	main {
 		text-align: center;
