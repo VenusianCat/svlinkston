@@ -139,11 +139,10 @@
 
 <main>
 	<section id="controls">
-		<h2>Controls</h2>
-		<button on:click={saveBookmarks}>Save data</button><br />
-		<input bind:value={newUrl} /><button on:click={addLink}>Add</button><br
-		/>
+		<input bind:value={newUrl} style="width:80%" />
+		<button on:click={addLink}>Add</button><br />
 		Filter: <input bind:value={filter} on:input={reFilter} />
+		<button on:click={saveBookmarks}>Save data</button>
 	</section>
 
 	<ul id="tabMenu">
