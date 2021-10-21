@@ -1,17 +1,23 @@
 <script>
 	import { bookmarks } from "./bookmarks2";
-	import Set from "./Set.svelte";
+	import { appState } from "./appState";
+	import Group from "./Group.svelte";
 	let filter, newUrl;
 
 	function getNextLinkId() {
 		let number = 0;
 		let highestNumber = 0;
-		$bookmarks[0].sets.forEach((set) => {
-			set.contents.forEach((link) => {
-				number = parseInt(link.id.slice(link.id.lastIndexOf("-") + 1));
-				if (number > highestNumber) highestNumber = number;
+		$bookmarks.forEach((group) => {
+			group.sets.forEach((set) => {
+				set.contents.forEach((link) => {
+					number = parseInt(
+						link.id.slice(link.id.lastIndexOf("-") + 1)
+					);
+					if (number > highestNumber) highestNumber = number;
+				});
 			});
 		});
+
 		return highestNumber + 1;
 	}
 
@@ -52,23 +58,27 @@
 		/* Step 1 - Find text links that match */
 		let activeLinks = 0;
 		let filteredBookmarks = $bookmarks;
-		filteredBookmarks[0].sets.forEach((set, setIndex) => {
-			set.contents.forEach((link, linkIndex) => {
-				if (
-					link.title.toLowerCase().indexOf(filter) > -1 ||
-					filter == ""
-				) {
-					filteredBookmarks[0].sets[setIndex].contents[
-						linkIndex
-					].display = true;
-					activeLinks++;
-				} else {
-					filteredBookmarks[0].sets[setIndex].contents[
-						linkIndex
-					].display = false;
-				}
+
+		filteredBookmarks.forEach((group, groupIndex) => {
+			filteredBookmarks[groupIndex].sets.forEach((set, setIndex) => {
+				set.contents.forEach((link, linkIndex) => {
+					if (
+						link.title.toLowerCase().indexOf(filter) > -1 ||
+						filter == ""
+					) {
+						filteredBookmarks[groupIndex].sets[setIndex].contents[
+							linkIndex
+						].display = true;
+						activeLinks++;
+					} else {
+						filteredBookmarks[groupIndex].sets[setIndex].contents[
+							linkIndex
+						].display = false;
+					}
+				});
 			});
 		});
+
 		console.log(activeLinks);
 		$bookmarks = filteredBookmarks;
 	}
@@ -85,6 +95,10 @@
 			body: JSON.stringify({ action: "save", json: $bookmarks }),
 		}).then((res) => console.log(res));
 	}
+
+	function switchTab() {
+		console.log("switch");
+	}
 </script>
 
 <main>
@@ -96,19 +110,50 @@
 		Filter: <input bind:value={filter} on:input={reFilter} />
 	</section>
 
-	<section class="set-container">
-		{#each $bookmarks[0].sets as set, index}
-			<Set {set} setIndex={index} />
+	<ul id="tabMenu">
+		{#each $bookmarks as group, index}
+			{#if index == $appState.currentTabIndex}
+				<li class="selectedTab">{$bookmarks[index].title}</li>
+			{:else}
+				<li
+					class="availableTab"
+					on:click={() => ($appState.currentTabIndex = index)}
+				>
+					{$bookmarks[index].title}
+				</li>
+			{/if}
+			<span class="separator">/</span>
+		{/each}
+	</ul>
+
+	<section class="groups-container">
+		{#each $bookmarks as group, index}
+			{#if index == $appState.currentTabIndex}
+				<Group {group} groupIndex={index} />
+			{/if}
 		{/each}
 	</section>
 </main>
 
 <style>
-	section.set-container {
-		font-size: 1em;
-		column-count: auto;
-		column-width: 320px;
-		column-gap: 20px;
+	#tabMenu {
+		margin: 0;
+		padding: 0;
+	}
+
+	#tabMenu li {
+		display: inline-block;
+		padding: 20px 0;
+		font-size: 1.5em;
+	}
+
+	#tabMenu span.separator {
+		display: inline-block;
+		padding: 0 10px;
+	}
+
+	li.selectedTab {
+		color: #fff;
 	}
 	/*
 	main {

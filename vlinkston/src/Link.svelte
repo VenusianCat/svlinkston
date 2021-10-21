@@ -1,11 +1,11 @@
 <script>
 	import { bookmarks } from "./bookmarks2";
-	export let link, setIndex, linkIndex;
+	export let link, groupIndex, setIndex, linkIndex;
 	let titleEditable = false;
 	let newTitle;
 
 	function del() {
-		$bookmarks[0].sets[setIndex].contents.splice(linkIndex, 1);
+		$bookmarks[groupIndex].sets[setIndex].contents.splice(linkIndex, 1);
 		link.display = false; // (also works and might involve fewer calculations; deletes do not trigger updates on bound objects)
 	}
 	function edit() {
@@ -14,7 +14,8 @@
 	}
 	function updateTitle() {
 		titleEditable = false;
-		$bookmarks[0].sets[setIndex].contents[linkIndex].title = newTitle;
+		$bookmarks[groupIndex].sets[setIndex].contents[linkIndex].title =
+			newTitle;
 	}
 </script>
 

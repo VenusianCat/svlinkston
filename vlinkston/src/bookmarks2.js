@@ -1,5 +1,5 @@
 import {
-	writable, derived
+	writable
 } from "svelte/store";
 
 let apiURL = 'http://localhost/working/backend/ajax.php';
