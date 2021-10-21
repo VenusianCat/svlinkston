@@ -15,9 +15,6 @@
 </section>
 
 <style>
-	h2 {
-		color: #fff;
-	}
 	section.sets-container {
 		font-size: 1em;
 		column-count: auto;

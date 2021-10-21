@@ -15,41 +15,12 @@
 	function handleDndConsider(e) {
 		items = e.detail.items;
 		console.log(set.id);
-
-		//hide all links apart from those in the current set;
-
-		/*let filteredBookmarks = $bookmarks;
-		filteredBookmarks[0].sets.forEach((fset, fsetIndex) => {
-			fset.contents.forEach((flink, flinkIndex) => {
-				if (fset.id == set.id) {
-					filteredBookmarks[0].sets[fsetIndex].contents[
-						flinkIndex
-					].display = true;
-				} else {
-					filteredBookmarks[0].sets[fsetIndex].contents[
-						flinkIndex
-					].display = false;
-				}
-			});
-		});
-		$bookmarks = filteredBookmarks;*/
-
 		$bookmarks[groupIndex].sets[setIndex].contents = e.detail.items;
 	}
 
 	function handleDndFinalize(e) {
 		items = e.detail.items;
 		$bookmarks[groupIndex].sets[setIndex].contents = e.detail.items;
-
-		//reset the visibility of all items
-		/*let filteredBookmarks = $bookmarks;
-		filteredBookmarks[0].sets.forEach((fset, fsetIndex) => {
-			fset.contents.forEach((flink, flinkIndex) => {
-				filteredBookmarks[0].sets[fsetIndex].contents[
-					flinkIndex
-				].display = true;
-			});
-		});*/
 	}
 
 	function edit() {
@@ -60,6 +31,12 @@
 	function updateTitle() {
 		editMode = false;
 		$bookmarks[groupIndex].sets[setIndex].title = newTitle;
+	}
+
+	function del() {
+		editMode = false;
+		$bookmarks[groupIndex].sets.splice(setIndex, 1);
+		$bookmarks = $bookmarks;
 	}
 
 	function moveSet(newGroupIndex) {
@@ -79,12 +56,45 @@
 			{#if !editMode}
 				<h2>
 					{set.title}
-					<span class="setControls" on:click={edit}>edit</span>
+					<span class="setControls" on:click={edit}
+						><span on:click={edit}
+							><svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#ccc"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><circle cx="12" cy="12" r="3" /><path
+									d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+								/></svg
+							></span
+						></span
+					>
 				</h2>
 			{:else}
 				<input class="setEditMode" bind:value={newTitle} />
-				<button on:click={updateTitle}>Update</button><br />
-				Move to:
+				<button on:click={updateTitle}>Update</button>
+				<button on:click={del}>delete</button><br />
+				<span class="arrowIcon"
+					><svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#ccc"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						><circle cx="12" cy="12" r="10" /><path
+							d="M12 8l4 4-4 4M8 12h7"
+						/></svg
+					></span
+				>
 				{#each $bookmarks as group, index}
 					{#if index !== $appState.currentTabIndex}
 						<span
@@ -94,7 +104,6 @@
 							{$bookmarks[index].title}
 						</span>
 					{/if}
-					<span class="separator"> / </span>
 				{/each}
 			{/if}
 		</section>
@@ -122,6 +131,23 @@
 		color: #ccc;
 		font-size: 0.8em;
 		font-weight: normal;
+	}
+
+	.availableTab {
+		font-size: larger;
+		display: inline-block;
+		padding-left: 10px;
+		color: #fff;
+	}
+
+	.availableTab:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+
+	.arrowIcon {
+		display: inline-block;
+		margin-bottom: 0px;
 	}
 
 	section.setContainer {

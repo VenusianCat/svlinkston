@@ -21,6 +21,20 @@
 		return highestNumber + 1;
 	}
 
+	function getNextSetId() {
+		//TODO
+		let number = 0;
+		let highestNumber = 0;
+		$bookmarks.forEach((group) => {
+			group.sets.forEach((set) => {
+				number = parseInt(set.id.slice(set.id.lastIndexOf("-") + 1));
+				if (number > highestNumber) highestNumber = number;
+			});
+		});
+
+		return highestNumber + 1;
+	}
+
 	function addLink() {
 		if (/^http(s)?:\/\//.test(newUrl) === true) {
 			const nextId = getNextLinkId();
@@ -31,6 +45,7 @@
 				title: newUrl,
 				url: newUrl,
 				display: true,
+				dataType: "link",
 			};
 
 			fetch("http://localhost/working/backend/ajax.php", {
@@ -50,6 +65,27 @@
 			$bookmarks[0].sets[0].contents.unshift(newLink);
 			$bookmarks = $bookmarks;
 			newUrl = "";
+		} else {
+			const nextId = getNextSetId();
+
+			const newSet = {
+				id: "set-" + nextId,
+				title: newUrl,
+				contents: [],
+				display: true,
+				dataType: "set",
+			};
+
+			console.log(newSet);
+
+			let positionInNewGroup = $appState.currentTabIndex == 0 ? 1 : 0;
+			$bookmarks[$appState.currentTabIndex].sets.splice(
+				positionInNewGroup,
+				0,
+				newSet
+			);
+
+			$bookmarks = $bookmarks;
 		}
 	}
 
