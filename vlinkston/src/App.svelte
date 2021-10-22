@@ -176,11 +176,12 @@
 <style>
 	#controls {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-between;
 	}
 
 	#addBox {
-		flex-basis: 50%;
+		flex-basis: 70%;
 	}
 
 	#addBox input {
@@ -189,12 +190,12 @@
 
 	#tabMenu {
 		margin: 0;
-		padding: 0;
+		padding: 20px 0;
 	}
 
 	#tabMenu li {
 		display: inline-block;
-		padding: 20px 0;
+		padding: 0;
 		font-size: 1.5em;
 	}
 
@@ -219,12 +220,15 @@
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
-	}
+	}*/
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
+	@media (max-width: 640px) {
+		#addBox {
+			flex-basis: auto;
+		}
+
+		#addBox input {
+			width: 300px;
 		}
 	}
-	*/
 </style>

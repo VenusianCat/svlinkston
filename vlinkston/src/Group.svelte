@@ -20,23 +20,26 @@
 	}
 </script>
 
-<section
-	class="sets-container"
-	use:dndzone={{
-		items,
-		type: "set",
-		dropTargetStyle: { "min-height": "40px" },
-	}}
-	on:consider={handleDndConsider}
-	on:finalize={handleDndFinalize}
->
-	{#if groupIndex !== 0}
-		<!--display the inbox in all groups-->
-		<Set set={$bookmarks[0].sets[0]} setIndex="0" groupIndex="0" />
-	{/if}
-	{#each items as set, index (set.id)}
-		<Set {set} setIndex={index} {groupIndex} />
-	{/each}
+<section class="sets-container">
+	<section>
+		{#if groupIndex !== 0}
+			<!--display the inbox in all groups-->
+			<Set set={$bookmarks[0].sets[0]} setIndex="0" groupIndex="0" />
+		{/if}
+	</section>
+	<section
+		use:dndzone={{
+			items,
+			type: "set",
+			dropTargetStyle: { "min-height": "40px" },
+		}}
+		on:consider={handleDndConsider}
+		on:finalize={handleDndFinalize}
+	>
+		{#each items as set, index (set.id)}
+			<Set {set} setIndex={index} {groupIndex} />
+		{/each}
+	</section>
 </section>
 
 <style>
