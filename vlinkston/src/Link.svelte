@@ -24,14 +24,14 @@
 		<section class="link">
 			{#if !titleEditable}
 				<a href={link.url} target="_blank">{link.title}</a>
-				<span on:click={edit}
+				<span class="editLink" on:click={edit}
 					><svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
 						height="16"
 						viewBox="0 0 24 24"
 						fill="none"
-						stroke="#ccc"
+						stroke="#666"
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -53,5 +53,14 @@
 <style>
 	section.link {
 		margin-bottom: 10px;
+	}
+	.editLink {
+		cursor: pointer;
+		display: inline-block;
+		margin-left: 5px;
+	}
+	.linkEditMode {
+		width: 100%;
+		border: 1px solid #ccc;
 	}
 </style>

@@ -139,10 +139,11 @@
 
 <main>
 	<section id="controls">
-		<input bind:value={newUrl} style="width:80%" />
-		<button on:click={addLink}>Add</button><br />
-		Filter: <input bind:value={filter} on:input={reFilter} />
-		<button on:click={saveBookmarks}>Save data</button>
+		<div id="addBox">
+			<input bind:value={newUrl} />
+			<button on:click={addLink}>Add</button>
+		</div>
+		<div>Filter: <input bind:value={filter} on:input={reFilter} /></div>
 	</section>
 
 	<ul id="tabMenu">
@@ -159,6 +160,8 @@
 			{/if}
 			<span class="separator">/</span>
 		{/each}
+		<button on:click={saveBookmarks}>Save data</button>
+		<span class="separator">/</span>
 	</ul>
 
 	<section class="groups-container">
@@ -171,6 +174,19 @@
 </main>
 
 <style>
+	#controls {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	#addBox {
+		flex-basis: 50%;
+	}
+
+	#addBox input {
+		width: 80%;
+	}
+
 	#tabMenu {
 		margin: 0;
 		padding: 0;

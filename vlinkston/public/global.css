@@ -38,8 +38,10 @@ input, button, select, textarea {
 	padding: 0.4em;
 	margin: 0 0 0.5em 0;
 	box-sizing: border-box;
-	border: 1px solid #ccc;
+	border: none;
+	background-color:#222;
 	border-radius: 2px;
+	color:#3c3;
 }
 
 input:disabled {
@@ -47,8 +49,8 @@ input:disabled {
 }
 
 button {
-	color: #333;
-	background-color: #f4f4f4;
+	color: #ccc;
+	background-color: #555;
 	outline: none;
 }
 

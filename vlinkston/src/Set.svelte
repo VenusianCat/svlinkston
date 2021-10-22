@@ -59,14 +59,14 @@
 					{#if !(groupIndex == 0 && setIndex == 0)}<span
 							class="setControls"
 							on:click={edit}
-							><span on:click={edit}
+							><span class="editLink" on:click={edit}
 								><svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="20"
 									height="20"
 									viewBox="0 0 24 24"
 									fill="none"
-									stroke="#ccc"
+									stroke="#666"
 									stroke-width="2"
 									stroke-linecap="round"
 									stroke-linejoin="round"
@@ -160,5 +160,11 @@
 		overflow-x: hidden;
 		display: block;
 		-webkit-column-break-inside: avoid;
+	}
+
+	.editLink {
+		cursor: pointer;
+		display: inline-block;
+		margin-left: 10px;
 	}
 </style>
