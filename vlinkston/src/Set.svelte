@@ -9,7 +9,7 @@
 	let newTitle;
 	let editMode = false;
 
-	/*OK guys, this line is critical; refactoring set.contents as items worked up to appoint; but without using this operator, changes to $bookmarks were not forcing changes to items, so no updates occured on filter, for example */
+	/*OK guys, this line is critical; refactoring set.contents as items worked up to a point; but without using this operator, changes to $bookmarks were not forcing changes to items, so no updates occured on filter, for example */
 	$: items = set.contents;
 
 	function handleDndConsider(e) {
@@ -111,7 +111,11 @@
 		</section>
 		<section
 			class="setContents"
-			use:dndzone={{ items, dropTargetStyle: { "min-height": "40px" } }}
+			use:dndzone={{
+				items,
+				type: "link",
+				dropTargetStyle: { "min-height": "40px" },
+			}}
 			on:consider={handleDndConsider}
 			on:finalize={handleDndFinalize}
 		>

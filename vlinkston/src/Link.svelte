@@ -40,7 +40,6 @@
 						/></svg
 					></span
 				>
-				<!--<span on:click={del}>delete</span>-->
 			{:else}
 				<input class="linkEditMode" bind:value={newTitle} />
 				<button on:click={updateTitle}>update</button>
