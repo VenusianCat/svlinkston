@@ -30,7 +30,7 @@ export const appState = writable({
 
 /* CONFIG GOES HERE!!! */
 let localhostAjaxURL = 'http://localhost/working/backend/ajax.php';
-let deployedAjaxURL = '';
+let deployedAjaxURL = './ajax.php';
 let ajaxURL = (window.location.hostname === "localhost") ? localhostAjaxURL : deployedAjaxURL;
 
 export const config = readable({
