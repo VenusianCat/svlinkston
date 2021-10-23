@@ -1,8 +1,7 @@
 <script>
 	export let set, setIndex, groupIndex;
 	import Link from "./Link.svelte";
-	import { bookmarks } from "./bookmarks2";
-	import { appState } from "./appState";
+	import { appState, bookmarks } from "./stores";
 	import { dndzone } from "svelte-dnd-action";
 
 	let items;

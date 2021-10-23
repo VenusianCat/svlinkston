@@ -1,8 +1,23 @@
 <script>
-	import { bookmarks } from "./bookmarks2";
-	import { appState } from "./appState";
+	import { config, appState, bookmarks } from "./stores";
 	import Group from "./Group.svelte";
 	let filter, newUrl;
+
+	async function getBookmarksFromFilesystem() {
+		const response = await fetch($config.ajaxURL, {
+			method: "post",
+			headers: {
+				Accept: "application/json, text/plain, /",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ action: "load" }),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				bookmarks.set(data);
+			});
+	}
+	getBookmarksFromFilesystem();
 
 	function getNextLinkId() {
 		let number = 0;
@@ -22,7 +37,6 @@
 	}
 
 	function getNextSetId() {
-		//TODO
 		let number = 0;
 		let highestNumber = 0;
 		$bookmarks.forEach((group) => {
@@ -48,7 +62,7 @@
 				dataType: "link",
 			};
 
-			fetch("http://localhost/working/backend/ajax.php", {
+			fetch($config.ajaxURL, {
 				method: "post",
 				headers: {
 					Accept: "application/json, text/plain, /",
@@ -122,7 +136,7 @@
 	function saveBookmarks() {
 		console.log("saving...");
 
-		fetch("http://localhost/working/backend/ajax.php", {
+		fetch($config.ajaxURL, {
 			method: "post",
 			headers: {
 				Accept: "application/json, text/plain, /",

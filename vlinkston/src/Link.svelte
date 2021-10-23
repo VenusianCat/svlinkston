@@ -1,5 +1,5 @@
 <script>
-	import { bookmarks } from "./bookmarks2";
+	import { bookmarks } from "./stores";
 	export let link, groupIndex, setIndex, linkIndex;
 	let titleEditable = false;
 	let newTitle;

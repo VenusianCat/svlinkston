@@ -1,6 +1,6 @@
 <script>
 	import { dndzone } from "svelte-dnd-action";
-	import { bookmarks } from "./bookmarks2";
+	import { bookmarks } from "./stores";
 	export let group, groupIndex;
 	import Set from "./Set.svelte";
 
