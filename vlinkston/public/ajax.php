@@ -35,7 +35,9 @@ if (isset($data->action)) {
 			$returnValue = $title;
 			echo $returnValue;
 			break;
-	}
+			default:
+				die('No valid action provided in Ajax request');
+		}
 
 }
 
