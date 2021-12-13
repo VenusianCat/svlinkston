@@ -29,7 +29,7 @@ export const appState = writable({
 
 
 /* CONFIG GOES HERE!!! */
-let localhostAjaxURL = 'http://localhost/working/backend/ajax.php';
+let localhostAjaxURL = 'http://localhost/vlinkston/vlinkston/public/ajax.php';
 let deployedAjaxURL = './ajax.php';
 let ajaxURL = (window.location.hostname === "localhost") ? localhostAjaxURL : deployedAjaxURL;
 
