@@ -3,8 +3,6 @@ import {
 	writable
 } from "svelte/store";
 
-
-
 /* BOOKMARKS STORE */
 export const bookmarks = writable([
 	{
@@ -15,20 +13,15 @@ export const bookmarks = writable([
 	}
 ]);
 
-
-
-
-
 /* APP STATE STORE */
 export const appState = writable({
 	currentTabIndex: 0
 });
 
-
-
-
-
 /* CONFIG GOES HERE!!! */
+/* 
+TODO: - refactor local config out of git? This is a known issue with git project management in general 
+*/
 let localhostAjaxURL = 'http://localhost/vlinkston/vlinkston/public/ajax.php';
 let deployedAjaxURL = './ajax.php';
 let ajaxURL = (window.location.hostname === "localhost") ? localhostAjaxURL : deployedAjaxURL;

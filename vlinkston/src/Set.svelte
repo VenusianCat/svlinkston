@@ -58,7 +58,7 @@
 					{#if !(groupIndex == 0 && setIndex == 0)}<span
 							class="setControls"
 							on:click={edit}
-							><span class="editLink" on:click={edit}
+							><span class="editLink baseline" on:click={edit}
 								><svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="20"
@@ -78,27 +78,27 @@
 				</h2>
 			{:else}
 				<input class="setEditMode" bind:value={newTitle} />
-				<button on:click={updateTitle}>Update</button>
-				<button on:click={del}>delete</button><br />
-				<span class="arrowIcon"
-					><svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="#ccc"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						><circle cx="12" cy="12" r="10" /><path
-							d="M12 8l4 4-4 4M8 12h7"
-						/></svg
-					></span
-				>
+				<button class="update" on:click={updateTitle}>update</button>
+				<button class="delete" on:click={del}>delete</button><br />
+
 				{#each $bookmarks as group, index}
 					{#if index !== $appState.currentTabIndex}
-						<span
+						<span class="arrowIcon baseline"
+							><svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#090"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><circle cx="12" cy="12" r="10" /><path
+									d="M12 8l4 4-4 4M8 12h7"
+								/></svg
+							>
+						</span><span
 							class="availableTab"
 							on:click={() => moveSet(index)}
 						>
@@ -106,6 +106,7 @@
 						</span>
 					{/if}
 				{/each}
+				<br /><br />
 			{/if}
 		</section>
 		<section
@@ -141,8 +142,8 @@
 	.availableTab {
 		font-size: larger;
 		display: inline-block;
-		padding-left: 10px;
 		color: #fff;
+		padding: 0 10px 5px 5px;
 	}
 
 	.availableTab:hover {
@@ -150,9 +151,28 @@
 		text-decoration: underline;
 	}
 
-	.arrowIcon {
-		display: inline-block;
-		margin-bottom: 0px;
+	input.setEditMode {
+		border: 1px solid #666;
+	}
+
+	/* SVG icon / text alignment tricks - https://blog.prototypr.io/align-svg-icons-to-text-and-say-goodbye-to-font-icons-d44b3d7b26b4 */
+
+	.arrowIcon, .editLink {
+		display: inline-flex;
+		align-self: center;
+	}
+	.arrowIcon svg, .editLink svg {
+		height: 1em;
+		width: 1em;
+	}
+	.arrowIcon.baseline svg, .editLink.baseline svg {
+		top: 0.125em;
+		position: relative;
+	}
+
+	.editLink {
+		cursor: pointer;
+		margin-left: 3px;
 	}
 
 	section.setContainer {
@@ -165,9 +185,11 @@
 		-webkit-column-break-inside: avoid;
 	}
 
-	.editLink {
-		cursor: pointer;
-		display: inline-block;
-		margin-left: 10px;
+	button.delete {
+		background-color: #c00;
+	}
+
+	button.update {
+		background-color: #090;
 	}
 </style>
