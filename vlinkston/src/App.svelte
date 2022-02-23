@@ -112,7 +112,8 @@
 			filteredBookmarks[groupIndex].sets.forEach((set, setIndex) => {
 				set.contents.forEach((link, linkIndex) => {
 					if (
-						link.title.toLowerCase().indexOf(filter) > -1 ||
+						link.title.toLowerCase().indexOf(filter.toLowerCase()) >
+							-1 ||
 						filter == ""
 					) {
 						filteredBookmarks[groupIndex].sets[setIndex].contents[
