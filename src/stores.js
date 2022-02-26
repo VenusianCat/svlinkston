@@ -18,7 +18,7 @@ export const appState = writable({
 	currentTabIndex: 0
 });
 
-/* CONFIG GOES HERE!!! */
+/* CONFIG GOES HERE */
 /* 
 TODO: - refactor local config out of git? This is a known issue with git project management in general 
 */
