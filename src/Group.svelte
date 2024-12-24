@@ -46,7 +46,7 @@
 	section.sets-container {
 		font-size: 1em;
 		column-count: auto;
-		column-width: 320px;
+		column-width: 350px;
 		column-gap: 20px;
 	}
 </style>
